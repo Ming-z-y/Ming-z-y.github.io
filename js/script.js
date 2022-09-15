@@ -1,10 +1,10 @@
-window.addEventListener("DOMContentLoaded", function() {
-  const html            = document.querySelector("html");
-  const navBtn          = document.querySelector(".navbar-btn");
-  const navList         = document.querySelector(".navbar-list");
-  const backToTopFixed  = document.querySelector(".back-to-top-fixed");
-  let lastTop           = 0;
-  let theme             = window.localStorage.getItem('theme') || '';
+window.addEventListener("DOMContentLoaded", function () {
+  const html = document.querySelector("html");
+  const navBtn = document.querySelector(".navbar-btn");
+  const navList = document.querySelector(".navbar-list");
+  const backToTopFixed = document.querySelector(".back-to-top-fixed");
+  let lastTop = 0;
+  let theme = window.localStorage.getItem('theme') || '';
 
   theme && html.classList.add(theme)
 
@@ -46,7 +46,7 @@ window.addEventListener("DOMContentLoaded", function() {
   })
 
   // theme auto click
-  document.querySelector('#theme-auto').addEventListener('click', function() {
+  document.querySelector('#theme-auto').addEventListener('click', function () {
     html.classList.remove('theme-light')
     html.classList.remove('theme-dark')
     window.localStorage.setItem('theme', '')
@@ -84,28 +84,28 @@ window.addEventListener("DOMContentLoaded", function() {
  *
  * @returns 距离高度
  */
-function getScrollTop () {
+function getScrollTop() {
   return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
 }
 
-function querySelectorArrs (selector) {
+function querySelectorArrs(selector) {
   return Array.from(document.querySelectorAll(selector))
 }
 
 
-function handleLazyBG () {
+function handleLazyBG() {
   const lazyBackgrounds = querySelectorArrs('[background-image-lazy]')
   let lazyBackgroundsCount = lazyBackgrounds.length
   if (lazyBackgroundsCount > 0) {
-    let lazyBackgroundObserver = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(function({ isIntersecting, target }) {
+    let lazyBackgroundObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function ({ isIntersecting, target }) {
         if (isIntersecting) {
           let img = target.dataset.img
           if (img) {
             target.style.backgroundImage = `url(${img})`
           }
           lazyBackgroundObserver.unobserve(target)
-          lazyBackgroundsCount --
+          lazyBackgroundsCount--
         }
         if (lazyBackgroundsCount <= 0) {
           lazyBackgroundObserver.disconnect()
@@ -113,7 +113,7 @@ function handleLazyBG () {
       })
     })
 
-    lazyBackgrounds.forEach(function(lazyBackground) {
+    lazyBackgrounds.forEach(function (lazyBackground) {
       lazyBackgroundObserver.observe(lazyBackground)
     })
   }
