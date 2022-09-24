@@ -14,7 +14,7 @@
     <meta name="author" content="MINGZhenyous" />
       
 
-    <title>My New Post | MING</title>
+    <title>nginx | MING</title>
 
       <link rel="shortcut icon" href="/favicon.ico"> 
       
@@ -28,7 +28,7 @@
   
   <div
     class="post-image"
-    style="background-image: url(https://images.pexels.com/photos/3183132/pexels-photo-3183132.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=600)"
+    style="background-image: url(https://img.zcool.cn/community/01433a55c1ede832f87528a1c9f25b.jpg@1280w_1l_2o_100sh.jpg)"
   ></div>
    <!-- navbar -->
 <nav class="navbar">
@@ -72,15 +72,15 @@
   <div class="header-content">
     <div class="post-text layout-block">
       <div class="layout-margin">
-        <h1 class="title-wrap">My New Post</h1>
+        <h1 class="title-wrap">nginx</h1>
         <h2 class="title-sub-wrap">
           <strong>MINGZhenyous</strong>
           <span>发布于</span>
           <time
   class="article-date"
-  datetime="2022-07-15T02:52:03.000Z"
+  datetime="2022-09-22T07:06:17.000Z"
   itemprop="datePublished"
-  >2022-07-15</time
+  >2022-09-22</time
 >
 
         </h2>
@@ -105,7 +105,22 @@
       <section
         class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box"
       >
-        <h3 id="我的新-post"><a href="#我的新-post" class="headerlink" title="我的新 post"></a>我的新 post</h3>
+        <h3 id="nginx-简介"><a href="#nginx-简介" class="headerlink" title="nginx 简介"></a>nginx 简介</h3><h4 id="Ninix-是一个高性能的HTTP和方向代理服务器，特点是占有内存少，并发能力强，事实上，nginx-的并发能力确实在同类型的网页服务器上表现较好"><a href="#Ninix-是一个高性能的HTTP和方向代理服务器，特点是占有内存少，并发能力强，事实上，nginx-的并发能力确实在同类型的网页服务器上表现较好" class="headerlink" title="Ninix 是一个高性能的HTTP和方向代理服务器，特点是占有内存少，并发能力强，事实上，nginx 的并发能力确实在同类型的网页服务器上表现较好"></a>Ninix 是一个高性能的HTTP和方向代理服务器，特点是占有内存少，并发能力强，事实上，nginx 的并发能力确实在同类型的网页服务器上表现较好</h4><h4 id="nginx-转为性能优化而开发，性能是其最重要的考量，实现上非常注重效率，能经受高负载的考验，有报告表明能支持高达-50000-个并发连接数"><a href="#nginx-转为性能优化而开发，性能是其最重要的考量，实现上非常注重效率，能经受高负载的考验，有报告表明能支持高达-50000-个并发连接数" class="headerlink" title="nginx 转为性能优化而开发，性能是其最重要的考量，实现上非常注重效率，能经受高负载的考验，有报告表明能支持高达 50000 个并发连接数"></a>nginx 转为性能优化而开发，性能是其最重要的考量，实现上非常注重效率，能经受高负载的考验，有报告表明能支持高达 50000 个并发连接数</h4><hr/>
+
+<h2 id="一些基本概念"><a href="#一些基本概念" class="headerlink" title="一些基本概念"></a>一些基本概念</h2><h3 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h3><h4 id="在客户端-浏览器-配置代理服务器，通过代理服务器进行互联网的访问"><a href="#在客户端-浏览器-配置代理服务器，通过代理服务器进行互联网的访问" class="headerlink" title="在客户端( 浏览器 )配置代理服务器，通过代理服务器进行互联网的访问"></a>在客户端( 浏览器 )配置代理服务器，通过代理服务器进行互联网的访问</h4><img src='/images/正向代理.png'/>
+
+<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><h4 id="我们只需要讲请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴漏的是代理服务器地址，隐藏了真实服务器-IP-地址"><a href="#我们只需要讲请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴漏的是代理服务器地址，隐藏了真实服务器-IP-地址" class="headerlink" title="我们只需要讲请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴漏的是代理服务器地址，隐藏了真实服务器 IP 地址"></a>我们只需要讲请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴漏的是代理服务器地址，隐藏了真实服务器 IP 地址</h4><img src='/images/反向代理.png'/>
+
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><h4 id="传统的模式：客户端发送多个请求到服务器，服务器处理请求，有一些可能要与数据库进行交互，服务器处理完毕后，再将结果返回客户端"><a href="#传统的模式：客户端发送多个请求到服务器，服务器处理请求，有一些可能要与数据库进行交互，服务器处理完毕后，再将结果返回客户端" class="headerlink" title="传统的模式：客户端发送多个请求到服务器，服务器处理请求，有一些可能要与数据库进行交互，服务器处理完毕后，再将结果返回客户端"></a>传统的模式：客户端发送多个请求到服务器，服务器处理请求，有一些可能要与数据库进行交互，服务器处理完毕后，再将结果返回客户端</h4><img src='/images/传统请求.png'/>
+
+<h4 id="这种架构模式对于早期的系统比较单一，并发请求数量较少的情况下是比较适合的，成本也低。但是随着信息数量的不断增大，访问量和数据量的飞速增长，以及系统业务的复杂度增加，这种架构会造成服务器相应客户端的请求日益缓慢，并发量特别大的时候，还容易造成服务器直接崩溃，很明显这是由于服务器性能的瓶颈造成的问题，那么如何解决这种情况？"><a href="#这种架构模式对于早期的系统比较单一，并发请求数量较少的情况下是比较适合的，成本也低。但是随着信息数量的不断增大，访问量和数据量的飞速增长，以及系统业务的复杂度增加，这种架构会造成服务器相应客户端的请求日益缓慢，并发量特别大的时候，还容易造成服务器直接崩溃，很明显这是由于服务器性能的瓶颈造成的问题，那么如何解决这种情况？" class="headerlink" title="这种架构模式对于早期的系统比较单一，并发请求数量较少的情况下是比较适合的，成本也低。但是随着信息数量的不断增大，访问量和数据量的飞速增长，以及系统业务的复杂度增加，这种架构会造成服务器相应客户端的请求日益缓慢，并发量特别大的时候，还容易造成服务器直接崩溃，很明显这是由于服务器性能的瓶颈造成的问题，那么如何解决这种情况？"></a>这种架构模式对于早期的系统比较单一，<code>并发请求</code>数量较少的情况下是比较适合的，成本也低。但是随着信息数量的不断增大，访问量和数据量的飞速增长，以及系统业务的复杂度增加，这种架构会造成服务器相应客户端的请求日益缓慢，并发量特别大的时候，还容易造成服务器直接崩溃，很明显这是由于服务器性能的瓶颈造成的问题，那么如何解决这种情况？</h4><h4 id="单个服务器解决不了，沃恩增加服务器的数量，然后将请求分发到各个服务器上，及那个原先请求集中到单个服务器上的情况分发到多个服务器上，将负载分发到不同的服务器，也就是我们所说的负载均衡"><a href="#单个服务器解决不了，沃恩增加服务器的数量，然后将请求分发到各个服务器上，及那个原先请求集中到单个服务器上的情况分发到多个服务器上，将负载分发到不同的服务器，也就是我们所说的负载均衡" class="headerlink" title="单个服务器解决不了，沃恩增加服务器的数量，然后将请求分发到各个服务器上，及那个原先请求集中到单个服务器上的情况分发到多个服务器上，将负载分发到不同的服务器，也就是我们所说的负载均衡"></a>单个服务器解决不了，沃恩增加服务器的数量，然后将请求分发到各个服务器上，及那个原先请求集中到单个服务器上的情况分发到多个服务器上，将负载分发到不同的服务器，也就是我们所说的<code>负载均衡</code></h4><img src='/images/负载均衡.png' />
+
+<h3 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h3><h4 id="为了加快网站的解析速度，可以把动态页面和静态页面由不同的服务器来解析，加快解析速度，降低原来单个服务器的压力"><a href="#为了加快网站的解析速度，可以把动态页面和静态页面由不同的服务器来解析，加快解析速度，降低原来单个服务器的压力" class="headerlink" title="为了加快网站的解析速度，可以把动态页面和静态页面由不同的服务器来解析，加快解析速度，降低原来单个服务器的压力"></a>为了加快网站的解析速度，可以把动态页面和静态页面由不同的服务器来解析，加快解析速度，降低原来单个服务器的压力</h4><img src='/images/动静结合.png'/>
+<hr />
+
+<h2 id="nginx-常用命令"><a href="#nginx-常用命令" class="headerlink" title="nginx 常用命令"></a>nginx 常用命令</h2><blockquote>
+<h5 id="使用-nginx-操作命令前提条件，必须进入-nginx-的目录"><a href="#使用-nginx-操作命令前提条件，必须进入-nginx-的目录" class="headerlink" title="使用 nginx 操作命令前提条件，必须进入 nginx 的目录"></a>使用 nginx 操作命令前提条件，必须进入 nginx 的目录</h5></blockquote>
+<h3 id="查看-nginx-版本号"><a href="#查看-nginx-版本号" class="headerlink" title="查看 nginx 版本号"></a>查看 nginx 版本号</h3><h5 id="nginx-v"><a href="#nginx-v" class="headerlink" title="./nginx -v"></a><code>./nginx -v</code></h5><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><h5 id="nginx"><a href="#nginx" class="headerlink" title="./nginx"></a><code>./nginx</code></h5><h3 id="关闭-nginx"><a href="#关闭-nginx" class="headerlink" title="关闭 nginx"></a>关闭 nginx</h3><h5 id="nginx-s-stop"><a href="#nginx-s-stop" class="headerlink" title="./nginx -s stop"></a><code>./nginx -s stop</code></h5><h3 id="重新加载-nginx"><a href="#重新加载-nginx" class="headerlink" title="重新加载 nginx"></a>重新加载 nginx</h3><h5 id="nginx-s-reload"><a href="#nginx-s-reload" class="headerlink" title="./nginx -s reload"></a><code>./nginx -s reload</code></h5>
       </section>
 
        
@@ -113,12 +128,12 @@
          <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
     
-      <div class="card-cover" background-image-lazy data-img="https://pic3.zhimg.com/v2-58d652598269710fa67ec8d1c88d8f03_r.jpg?source=1940ef5c"></div>
+      <div class="card-cover" background-image-lazy data-img="https://img.zcool.cn/community/0178b55abdd3eda8012062e3ec3c95.jpg@1280w_1l_2o_100sh.jpg"></div>
     
     <div class="card-text">
       
-        <a href="/2022/07/17/7_16%E7%9A%84%E6%80%BB%E7%BB%93/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">7_16的总结</h2>
+        <a href="/2022/09/22/http/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">HTTP</h2>
         </a>
       
       <div class="card-text--row">次の記事</div>
@@ -127,10 +142,12 @@
 </div>   <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
     
+      <div class="card-cover" background-image-lazy data-img="https://images.pexels.com/photos/1612351/pexels-photo-1612351.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=600"></div>
+    
     <div class="card-text">
       
-        <a href="/2022/07/15/hello-world/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">Hello World</h2>
+        <a href="/2022/09/16/%E5%85%B3%E4%BA%8E%E5%8D%9A%E5%AE%A2/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">关于博客</h2>
         </a>
       
       <div class="card-text--row">前の記事</div>
