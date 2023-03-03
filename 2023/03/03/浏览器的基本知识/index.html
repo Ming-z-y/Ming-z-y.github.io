@@ -124,36 +124,36 @@
 <li>数据存储 - 属于持久层，浏览器需要在硬盘中保存类似 cookie 的各种数据，HTML5 定义了<code>web database</code>技术，这是一种轻量级完成客户端存储技术</li>
 </ol>
 <h3 id="本节课会从浏览器的渲染引擎、JS解析器、浏览器缓存三个内容出发去认识浏览器"><a href="#本节课会从浏览器的渲染引擎、JS解析器、浏览器缓存三个内容出发去认识浏览器" class="headerlink" title="本节课会从浏览器的渲染引擎、JS解析器、浏览器缓存三个内容出发去认识浏览器"></a>本节课会从浏览器的<code>渲染引擎</code>、<code>JS解析器</code>、<code>浏览器缓存</code>三个内容出发去认识浏览器</h3><h3 id="渲染引擎"><a href="#渲染引擎" class="headerlink" title="渲染引擎"></a>渲染引擎</h3><p>通常，我们在编写好 HTML，CSS，Javascript 等文件，经过浏览器就会显示漂亮的页面，但是你知道它们是如何转化成页面的吗？这背后的原理，估计很多人都答不上来。</p>
-<p>![image-20230304002651981](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304002651981.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/2b/79/2b08a85c63bee68c6fd95dabb648fd79.png" alt="img"></p>
 <p>从图中可以看出，左边输入的是 HTML，CSS，JavaScript 数据，只写数据经过中间渲染模块的处理，最终输出为屏幕上的像素。</p>
 <p>这中间的渲染模块激素 hi 我们今天讨论的第一个主题。为了更好的理解下文，你可以先结合下图快速抓住 HTML，CSS 和 JavaScript 的含义：</p>
-<p>![image-20230304002827478](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304002827478.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/31/e6/31cd7172f743193d682d088a60cb44e6.png" alt="img"></p>
 <p>从图中可以看出，HTML 内容是由标记和文本组成。标记也成为标签，每个标签都有它自己的语义，浏览器会根据标签的语义来正确的展示 HTML 内容。比如上面的<code>&lt;p&gt;</code>标签就是告诉浏览器在这里的内容需要创建一个新段落，中间的文本就是段落中需要展示的内容。</p>
 <p>如果需要改变 HTML 字体颜色，大小等信息，这就需要用到 CSS。CSS 又称为层叠演示表，是由选择器和属性组成，比如图中的 p 选择器，他会把 HTML 里面的<code>&lt;p&gt;</code>的内容选择出来，然后再把选择器的属性值应用到<code>&lt;p&gt;</code>标签内容上。选择器里面有一个<code>color</code>属性，它的值是 red，这是告诉渲染引擎把<code>&lt;p&gt;</code>标签的内容显示为红色。</p>
 <p>至于 JavaScript，使用它可以让页面’’动’’起来，比如上图中，可以通过 JavaScript 来修改 css 样式，从而达到修改文本颜色的目的。</p>
 <p>搞清楚 HTML，CSS 和 JavaScript 含义之后，那么接下来就正式开始分析渲染模块，</p>
 <p>由于渲染机制过于复杂，所以渲染模块在执行过程中会被划分为很多子阶段，输入的 HTML 经过这些子阶段，最后输出像素。我们把这样的一个处理流程叫做渲染流程线，其大致路程如下图：</p>
-<p>![image-20230304003451121](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304003451121.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/92/e8/9259f8732ddad472e5e08a633ad46de8.png" alt="img"></p>
 <p>按照渲染的时间顺序，流水线可以分为下面几个子阶段：构建 DOM 树，样式计算，布局阶段，分层，绘制，分块，光栅化和合成。</p>
 <h4 id="构建-DOM-树"><a href="#构建-DOM-树" class="headerlink" title="构建 DOM 树"></a>构建 DOM 树</h4><p>为什么要构建 DOM 树呢？这是因为浏览器无法直接理解和使用 HTML，所以需要将 HTML 转换为浏览器能够理解的结构 – DOM 树。</p>
 <p>这里简单介绍一下什么是树结构，下面是几个例子：</p>
-<p>![image-20230304003928225](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304003928225.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/fc/38/fcad0a4e3e73c796f00d6120284a3638.png" alt="img"></p>
 <p>从图中可以看出，树这种结构非常想我们现实生活中的’’树’’，其中每个点我们成为节点，相连的节点成为父节点。树结构在浏览器中运用还是非常多，下面我们介绍的渲染流程，就是频繁的使用树结构。</p>
 <p>接下来我们来看看 DOM 树的构建过程，你可以参考下图：</p>
-<p>![image-20230304004123421](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304004123421.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/12/79/125849ec56a3ea98d4b476c66c754f79.png" alt="img"></p>
 <p>从图中可以看出，构建 DOM 树的输入内容是一个非常简单的 HTML 文件，然后经过 HTML 解析器解析，最终输出树状结构的 DOM。</p>
 <p>为了更加直观地理解 DOM 树，你可以打开 Chrome 地“开发者工具”，选择“Console”标签来打开控制台，然后输入<code>document</code>之后回车，你可以看到一个完整地 DOM 树结构，如下图所示：</p>
-<p>![image-20230304004435392](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304004435392.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/47/73/47f57c3eee749dd838939bfe5dd64573.png" alt="img"></p>
 <p>图中的 document 就是 DOM 结构，你可以看到，DOM 和 HTML 内容几乎是一样的，但是和 HTML 不同的是，DOM 是保存在内存中的树状结构，可以通过 JavaScript 来查询或修改其内容。</p>
 <p>下面就看看如何通过 js 来修改 DOM 内容，在控制台中输入：</p>
 <p><code>document.getElementsByTagName(&quot;p&quot;)[0].innerText = &quot;black&quot;</code></p>
 <p>这行代码作用就是把第一个<code>&lt;p&gt;</code>标签内容修改为 black，执行结果如下图：</p>
-<p>![image-20230304004646828](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304004646828.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/e7/74/e730aa1d73c1151c588e2f8c7e22c274.png" alt="img"></p>
 <p>从图中可以看出，在执行一段修改第一个<code>&lt;p&gt;</code>标签中 JavaScript 代码后，DOM 的第一个 p 节点的内容成功被修改，同时页面中的内容也被修改了</p>
 <p>好了，现在已经生成 DOM 树了，但是 DOM 节点的样式我们依然不知道，要让 DOM 节点拥有正确的样式，这就需要样式计算了。</p>
 <h4 id="样式计算"><a href="#样式计算" class="headerlink" title="样式计算"></a>样式计算</h4><p>样式计算的目的是为了计算出 DOM 节点中每个元素的具体样式，这个阶段大题可以分为三步来完成</p>
 <h5 id="1-把-css-转换为浏览器能够理解的结构"><a href="#1-把-css-转换为浏览器能够理解的结构" class="headerlink" title="1.把 css 转换为浏览器能够理解的结构"></a>1.把 css 转换为浏览器能够理解的结构</h5><p>那 css 样式来源主要有哪些呢？你可以参考下图：</p>
-<p>![image-20230304005014015](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304005014015.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/bc/7c/bc93df7b8d03b2675f21e1d9e4e1407c.png" alt="img"></p>
 <p>从图中可以看出，css 样式来源主要有三种：</p>
 <ul>
 <li><p>通过 link 引用的外部 css 文件</p>
@@ -165,9 +165,9 @@
 <li><p>和 HTML 文件一样，浏览器也是无法直接理解这些纯文本的 CSS 样式，所以当渲染引擎接收到 CSS 文本时，会执行一个转换操作，将 CSS 文本转换为浏览器可以理解的结构 – styleSheets</p>
 </li>
 <li><p>为了加深理解，你可以在控制台中输入<code>document.styleSheets</code>，然后你就可以看到下图所示的结构</p>
-<p>![image-20230304005342263](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304005342263.png)</p>
 </li>
 </ul>
+<p><img src="https://static001.geekbang.org/resource/image/8e/ab/8ec7d5ecfadcd05b3f1ec762223a9aab.png" alt="img"></p>
 <p>从图中可以看出，这个样式表包含了很多种样式，已经把那三种来源的样式都包含进去了。当然样式表的具体结构不是我们今天讨论的重点，你只需要知道渲染引擎会把获取到的 CSS 文本全部转换为 styleSheets 结构中的数据，并且该结构同时具备了查询和修改功能，这会为后面的样式操作提供基础</p>
 <h5 id="2-转换样式表中的属性值，使其标准化"><a href="#2-转换样式表中的属性值，使其标准化" class="headerlink" title="2.转换样式表中的属性值，使其标准化"></a>2.转换样式表中的属性值，使其标准化</h5><p>现在我们已经把现有的 CSS 文本转化为浏览器可以理解的结构了，那么接下来就要对其进行属性值的标准化操作。</p>
 <p>要理解什么是属性值标准化，你可以看下面这样一段 CSS 文本</p>
@@ -192,7 +192,7 @@ div &#123;
 </code></pre>
 <p>可以看到上面的 CSS 文本中有很多属性值，如 2em、blue、bold，这些类型数值不容易被渲染引擎理解，所以需要将所有值转换为渲染引擎容易理解的、标准化的计算值，这个过程就是属性值标准化。</p>
 <p>那标准化后的属性值是什么样子的？</p>
-<p>![image-20230304005652545](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304005652545.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/12/60/1252c6d3c1a51714606daa6bdad3a560.png" alt="img"></p>
 <p>从图中可以看到，2em 被解析成了 32px，red 被解析成了 rgb(255,0,0)，bold 被解析成了 700……</p>
 <h5 id="3-计算出-DOM-树中每个节点的具体样式"><a href="#3-计算出-DOM-树中每个节点的具体样式" class="headerlink" title="3.计算出 DOM 树中每个节点的具体样式"></a>3.计算出 DOM 树中每个节点的具体样式</h5><p>现在样式的属性已被标准化了，接下来就需要计算 DOM 树中每个节点的样式属性了，如何计算呢？</p>
 <p><strong>这就涉及到 CSS 的继承规则和层叠规则了。</strong></p>
@@ -215,10 +215,10 @@ div p &#123;
 &#125;
 </code></pre>
 <p>这张样式表最终应用到 DOM 节点的效果如下图所示：</p>
-<p>![image-20230304005810122](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304005810122.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/fe/b4/fe9a0ea868dc02a3c4a59f6080aa80b4.png" alt="img"></p>
 <p>从图中可以看出，所有子节点都继承了父节点样式。比如 body 节点的 font-size 属性是 20，那 body 节点下面的所有节点的 font-size 都等于 20。</p>
 <p>为了加深你对 CSS 继承的理解，你可以打开 Chrome 的“开发者工具”，选择第一个“element”标签，再选择“style”子标签，你会看到如下界面：</p>
-<p>![image-20230304005831896](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304005831896.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/88/b2/88a3aac427cc7c09361eac01a85fc7b2.png" alt="img"></p>
 <p>这个界面展示的信息很丰富，大致可描述为如下</p>
 <ul>
 <li>首先，可以选择要查看的元素的样式（位于图中的区域 2 中），在图中的第 1 个区域中点击对应的元素元素，就可以了下面的区域查看该元素的样式了。比如这里我们选择的元素是<code>&lt;p&gt;</code>标签，位于<code>html.body.div.</code>这个路径下面</li>
@@ -229,13 +229,13 @@ div p &#123;
 <p>样式计算过程中的第二个规则是样式层叠。<strong>层叠是 CSS 的一个基本特征，它是一个定义了如何合并来自多个源的属性值的算法</strong>。它在 CSS 处于核心地位，CSS 的全称“层叠样式表”正是强调了这一点。关于层叠的具体规则这里就不做过多介绍了，网上资料也非常多，你可以自行搜索学习</p>
 <p>总之，样式计算阶段的目的是为了计算出 DOM 节点中每个元素的具体样式，在计算过程中需要遵守 CSS 的继承和层叠两个规则。这个阶段最终输出的内容是每个 DOM 节点的样式，并被保存在 ComputedStyle 的结构内。</p>
 <p>如果你想了解每个 DOM 元素最终的计算样式，可以打开 Chrome 的“开发者工具”，选择第一个“element”标签，然后再选择“Computed”子标签，如下图所示：</p>
-<p>![image-20230304010110286](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304010110286.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/d8/46/d87415b0187e3860404bf963f1c3d646.png" alt="img"></p>
 <p>上图红色方框中显示了 html.body.div.p 标签的 ComputedStyle 的值。你想要查看哪个元素，点击左边对应的标签就可以了。</p>
 <h4 id="布局阶段"><a href="#布局阶段" class="headerlink" title="布局阶段"></a>布局阶段</h4><p>现在，我们有 DOM 树和 DOM 树中元素的样式，但这还不足以显示页面，因为我们还不知道 DOM 元素的几何位置信息。那么接下来就需要计算出 DOM 树中可见元素的几何位置，我们把这个计算过程叫做布局。</p>
 <p>Chrome 在布局阶段需要完成两个任务：创建布局树和布局计算</p>
 <h5 id="1-构建布局树"><a href="#1-构建布局树" class="headerlink" title="1.构建布局树"></a>1.构建布局树</h5><p>你可能注意到了 DOM 树还含有很多不可见的元素，比如 head 标签，还有使用了<code>display:none</code>属性的元素。所以在显示之前，我们还要额外地构建一棵只包含可见元素布局树。</p>
 <p>我们结合下图来看看布局树的构造过程：</p>
-<p>![image-20230304010441074](C:\Users\hp Ming\AppData\Roaming\Typora\typora-user-images\image-20230304010441074.png)</p>
+<p><img src="https://static001.geekbang.org/resource/image/8e/0e/8e48b77dd48bdc509958e73b9935710e.png" alt="img"></p>
 <p>从上图可以看出，DOM 树中所有不可见的节点都没有包含到布局树中。</p>
 <p>为了构建布局树，浏览器大体上完成了下面这些工作</p>
 <ul>
